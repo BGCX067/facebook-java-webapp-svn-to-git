@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - Application context definition for "facebook" DispatcherServlet.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+
+	<!-- IMPORTED RESOURCES -->
+	<import resource="classpath:spring-configuration.xml"/>
+	<import resource="classpath:spring-dao.xml"/>
+	<import resource="classpath:spring-services.xml"/>
+	<import resource="classpath:spring-webapp-controllers.xml"/>
+	<import resource="classpath:spring-webapp-configuration.xml"/>
+
+
+    <!-- URL MAPPINGS -->
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="/authorize.fbml">authorizeController</prop>
+                <prop key="/invite.fbml">inviteController</prop>
+                <prop key="/welcome.fbml">welcomeController</prop>
+                <prop key="/fbml-tags.fbml">fbmlTagsController</prop>
+                <prop key="/fbml-tags/fb-name.fbml">fbmlTagNameController</prop>
+            </props>
+        </property>
+        <property name="interceptors">
+        	<list>
+        		<ref bean="facebookOpenSessionInViewInterceptor" />
+        		<ref bean="facebookInterceptor" />
+        	</list>
+        </property>
+    </bean>
+
+
+    <!-- VIEW RESOLVERS -->
+	<bean id="tilesViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="0" />
+		<property name="viewClass">
+			<value>org.springframework.web.servlet.view.tiles.TilesView</value>
+		</property>
+	</bean>
+	<bean id="jspViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="1" />
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+
+    <!-- LOCALE RESOLVER -->
+    <bean id="localeResolver"
+	  class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver">
+    </bean>
+
+
+    <!-- TILES -->
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles.TilesConfigurer">
+        <property name="definitions">
+            <list>
+                <value>/WEB-INF/facebook-tiles-def.xml</value>
+            </list>
+        </property>
+    </bean>
+
+
+	<!-- INTERCEPTORS -->
+	<bean id="facebookOpenSessionInViewInterceptor"
+		class="com.google.code.facebookwebapp.web.util.FacebookOpenSessionInViewInterceptor">
+		<property name="sessionFactory" ref="facebookSessionFactory" />
+		<property name="flushModeName" value="FLUSH_AUTO" />
+	</bean>
+	<bean id="facebookInterceptor" class="com.google.code.facebookwebapp.web.interceptor.FacebookInterceptor">
+		<property name="userService" ref="userService"/>
+	</bean>
+
+
+</beans>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    - Application context definition for Controller objects
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="facebookPropertiesConfiguration" class="org.apache.commons.configuration.PropertiesConfiguration">
+		<constructor-arg index="0">
+			<value>facebook.properties</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="compositeConfiguration" class="org.apache.commons.configuration.CompositeConfiguration">
+		<constructor-arg index="0">
+			<list>
+				<ref bean="facebookPropertiesConfiguration"/>
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="facebookProperty" class="com.google.code.facebookwebapp.web.util.FacebookProperty">
+		<property name="compositeConfiguration" ref="compositeConfiguration"/>
+	</bean>
+
+</beans>

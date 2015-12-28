@@ -1,0 +1,82 @@
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	<!-- Includes -->
+    <definition name="blank" template="/WEB-INF/content/includes/blank.jsp"/>
+    <definition name="fbml-header" template="/WEB-INF/content/includes/fbml-header.jsp"/>
+    <definition name="iframe-header" template="/WEB-INF/content/includes/iframe-header.jsp"/>
+    <definition name="web-head" template="/WEB-INF/content/includes/web-head.jsp"/>
+	
+    <!-- Layouts -->
+    <definition name="web-layout" template="/WEB-INF/content/layouts/web-layout.jsp">
+        <put-attribute name="body" value="/WEB-INF/content/includes/blank.jsp"/>
+        <put-attribute name="head" value="web-head"/>
+        <put-attribute name="left-nav" value="/WEB-INF/content/includes/blank.jsp"/>
+    </definition>
+    <definition name="social-plugins-layout" extends="web-layout">
+        <put-attribute name="left-nav" value="/WEB-INF/content/web/social-plugins-left-nav.jsp"/>
+    </definition>
+    <definition name="graph-api-layout" extends="web-layout">
+        <put-attribute name="left-nav" value="/WEB-INF/content/web/graph-api-left-nav.jsp"/>
+    </definition>
+    <definition name="js-sdk-layout" extends="web-layout">
+        <put-attribute name="left-nav" value="/WEB-INF/content/web/js-sdk-left-nav.jsp"/>
+    </definition>
+    
+    <!-- Web - The definitions for the website -->
+    <definition name="oauth" template="/oauth.jsp"/>
+    <definition name="oauth-redirect" template="/WEB-INF/content/fbml/oauth-redirect.jsp"/>
+    <definition name="redirect" template="/WEB-INF/content/redirect.jsp"/>
+    <definition name="web.activity-feed" extends="social-plugins-layout">
+        <put-attribute name="body" value="/WEB-INF/content/web/activity-feed.jsp"/>
+    </definition>
+    <definition name="web.comments" extends="social-plugins-layout">
+        <put-attribute name="body" value="/WEB-INF/content/web/comments.jsp"/>
+    </definition>
+    <definition name="web.facepile" extends="social-plugins-layout">
+        <put-attribute name="body" value="/WEB-INF/content/web/facepile.jsp"/>
+    </definition>
+    <definition name="web.graph-api" extends="graph-api-layout">
+        <put-attribute name="body" value="/WEB-INF/content/web/graph-api.jsp"/>
+    </definition>
+    <definition name="web.graph-api.me" extends="graph-api-layout">
+        <put-attribute name="body" value="/WEB-INF/content/web/graph-api-me.jsp"/>
+    </definition>
+    <definition name="web.js-sdk" extends="js-sdk-layout">
+        <put-attribute name="body" value="/WEB-INF/content/web/js-sdk.jsp"/>
+    </definition>
+    <definition name="web.js-sdk-api" extends="js-sdk-layout">
+        <put-attribute name="body" value="/WEB-INF/content/web/js-sdk-api.jsp"/>
+    </definition>
+    <definition name="web.live-stream" extends="social-plugins-layout">
+        <put-attribute name="body" value="/WEB-INF/content/web/live-stream.jsp"/>
+    </definition>
+    <definition name="web.welcome" extends="social-plugins-layout">
+        <put-attribute name="body" value="/WEB-INF/content/web/welcome.jsp"/>
+    </definition>
+	
+	<!-- CANVAS - The definitions for the canvas pages - Using Render Method as Wildcard, i.e. 'fbml' or 'iframe' -->
+	<definition name="canvas.*.fbml" template="/WEB-INF/content/layouts/{1}-layout.jsp">
+        <put-attribute name="header" value="{1}-header"/>
+        <put-attribute name="body" value="/WEB-INF/content/{1}/fbml.jsp"/>
+    </definition>
+    <definition name="canvas.*.feeds" template="/WEB-INF/content/layouts/{1}-layout.jsp">
+        <put-attribute name="header" value="{1}-header"/>
+        <put-attribute name="body" value="/WEB-INF/content/{1}/feeds.jsp"/>
+    </definition>
+    <definition name="canvas.*.invite" template="/WEB-INF/content/layouts/{1}-layout.jsp">
+        <put-attribute name="header" value="{1}-header"/>
+        <put-attribute name="body" value="/WEB-INF/content/{1}/invite.jsp"/>
+    </definition>
+    <definition name="canvas.*.notifications" template="/WEB-INF/content/layouts/{1}-layout.jsp">
+        <put-attribute name="header" value="{1}-header"/>
+        <put-attribute name="body" value="/WEB-INF/content/{1}/notifications.jsp"/>
+    </definition>
+	<definition name="canvas.*.welcome" template="/WEB-INF/content/layouts/{1}-layout.jsp">
+        <put-attribute name="header" value="{1}-header"/>
+        <put-attribute name="body" value="/WEB-INF/content/{1}/welcome.jsp"/>
+    </definition>
+    
+</tiles-definitions>

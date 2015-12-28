@@ -1,0 +1,16 @@
+=== Release 0.4 ===
+
+    * OAuth v2 authentication
+    * Social Plugins sample site
+    * Samples with Facebook Open Graph 
+
+=== Release 0.3 ===
+
+  * Make examples in JSP's of ALL the FBML tags.
+
+=== Release 0.2 ===
+
+  * Add the database layer, to showcase a simple Add and Remove of a user
+  * Add an ORM layer with Hibernate
+  * Add sending notifications on certain user actions
+  * Add sending of a mini-feed, both through a trigger in the UI and the source code

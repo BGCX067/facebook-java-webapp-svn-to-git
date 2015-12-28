@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE hibernate-reverse-engineering
+		SYSTEM "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+
+<hibernate-reverse-engineering>
+	<table-filter match-name=".*" package="com.google.code.facebookwebapp"/>
+	<table name="user" catalog="facebook">
+		<primary-key>
+			<generator class="native" />
+		</primary-key>
+	</table>
+</hibernate-reverse-engineering>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    <display-name>Facebook Web Application</display-name>
+
+	<context-param>
+	  <param-name>contextConfigLocation</param-name>
+	  <param-value>/WEB-INF/facebook-servlet.xml</param-value>
+	</context-param>
+
+
+    <!-- =================== -->
+    <!-- FILTER DEFINITIONS  -->
+    <!-- =================== -->
+
+    <filter>
+        <filter-name>Facebook Filter</filter-name>
+        <filter-class>com.google.code.facebookwebapp.web.filter.FacebookFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>UrlRewriteFilter</filter-name>
+        <filter-class>
+        	org.tuckey.web.filters.urlrewrite.UrlRewriteFilter
+        </filter-class>
+        <init-param>
+            <param-name>logLevel</param-name>
+            <param-value>INFO</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>Facebook Filter</filter-name>
+        <servlet-name>facebook</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>UrlRewriteFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+	<listener>
+	  <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+    <!-- =================== -->
+    <!-- SERVLET DEFINITIONS -->
+    <!-- =================== -->
+
+    <servlet>
+        <servlet-name>facebook</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+
+    <!-- =================== -->
+    <!-- SERVLET MAPPINGS    -->
+    <!-- =================== -->
+
+    <servlet-mapping>
+        <servlet-name>facebook</servlet-name>
+        <url-pattern>*.fbml</url-pattern>
+    </servlet-mapping>
+
+
+    <!-- =================== -->
+    <!-- ERROR PAGES         -->
+    <!-- =================== -->
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404.htm</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/500.htm</location>
+    </error-page>
+
+
+</web-app>
